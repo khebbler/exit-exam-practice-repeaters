@@ -4,7 +4,7 @@ Problem #1: Create an array called favoriteTvShows and populate it with your 5
 favorite TV Shows.
  */
 
-let favoriteTVShows;
+let favoriteTVShows = ['Community', 'Mr. Robot', 'Utopia', 'The Leftovers', 'The Boys'];
 
 /*
 Problem #2: Create a function called printValuesInReverse. This function should 
@@ -19,7 +19,14 @@ Succession", "It's Always Sunny in Philadelphia"]) => LOGS
 
 
 let printValuesInReverse = function(array) {
-  
+  // Looping through input array in reverse
+  for (let i = array.length - 1; i >= 0; i--) {
+    // if length of array is odd
+    if (array[i].length % 2 !== 0) {
+      // printing new values
+      console.log(array[i]);
+    }
+  }
 };
 
 /*
@@ -30,7 +37,11 @@ and stillRunning should be assigned a boolean based on whether the show is "stil
 running" or has ended.
  */
 
-let favoriteShow;
+let favoriteShow = {
+  title: 'Utopia',
+  genre: 'drama',
+  stillRunning: false
+};
 
 /*
 Problem #4: Create a function called getObjectKeys that takes in an 
@@ -39,7 +50,19 @@ value at that key is a boolean.
  */
 
 let getObjectKeys = function(object) {
-  
+  // storage array for result
+  var result = [];
+
+  // Looping through input object's keys
+  for (let key in object) {
+    // if object's key is a boolean
+    if (typeof object[key] === 'boolean') {
+      // adding key to result array
+      result.push(key);
+    }
+  }
+  // returning result
+  return result;
 };
 
 /*
@@ -49,7 +72,18 @@ are strings.
  */
 
 const getObjectValues = function(object) {
-  
+  // storage array for result
+  var result = [];
+  // Looping through input object's values
+  for (let value in object) {
+    // if values are string
+    if (typeof object[value] === 'string') {
+      // adding value to result array
+      result.push(object[value]);
+    }
+  }
+  // returning result
+  return result;
 };
 
 
@@ -61,7 +95,14 @@ key and the input value added as a value to that key.
  */
 
 const returnNewObj = function(object, key, value) {
-  
+  // creating copy of input object using spread syntax
+  var newObject = {... object};
+
+  // assigning object's keys and values to newObject
+  newObject[key] = value;
+
+  // returning newObject
+  return newObject;
 };
 
 
@@ -72,6 +113,10 @@ assign it the value of the input value.
  */
 
 const addProperty = function(object, key, value) {
+  // adding input key to object & assigning input value
+  object[key] = value;
+  // returning object;
+  return object;
   
 };
 
@@ -119,7 +164,16 @@ undefined.
  */
 
 const findByTitle = function(array, title) {
-  
+  // Looping through input array of objects
+  for (let i = 0; i < array.length; i++) {
+    // if object's title matches input title
+    if (array[i].title === title) {
+      // return object
+      return array[i];
+    }
+  } 
+  // if no title exists
+  return undefined;
 };
 
 
@@ -132,7 +186,11 @@ property is "Comedy".
  */
 
 var getComedies = function(array) {
-  
+  // filtering through array of shows
+  return array.filter(function(show) {
+    // returning only tv show objects with Comedy genre
+    return show.genre === "Comedy";
+  });
 };
 
 
@@ -144,7 +202,14 @@ and return the average number of seasons for all of the tv shows.
  */
 
 const getAverageOfSeasons = function(array) {
-  
+  // Looping through input array using reduce
+  let totalSeasons = array.reduce(function(acc, show) {
+    // adding number of seasons to accumulator
+    return acc + show.seasons;
+  }, 0);
+  // finding average
+  // total seasons divided by number of shows (length of array)
+  return totalSeasons / array.length;
 };
 
 
@@ -171,5 +236,12 @@ nested object.
  */
 
 var recursivelyGetNodeSum = function(object, sum=0) {
-  
+  // base
+  if (object === null) {
+    return sum;
+  }
+  // adding current value to sum
+  sum += object.value;
+  // recursion
+  return recursivelyGetNodeSum(object.node, sum);
 };
